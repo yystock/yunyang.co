@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/ModalProvider";
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ThemeQueryProvider } from "@/providers/ThemeQueryProvider";
 import ToasterProvider from "@/providers/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,15 +16,15 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={cn("antialiased bg-background text-foreground", inter.className)}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("antialiased bg-background text-foreground min-h-screen flex flex-col", inter.className)}>
+        <ThemeQueryProvider attribute="class" defaultTheme="system" enableSystem>
           <ModalProvider />
-          <Nav />
           <ToasterProvider />
-          {children}
+          <Nav />
+          <main className="flex-1">{children}</main>
           <Footer />
-        </ThemeProvider>
+        </ThemeQueryProvider>
       </body>
     </html>
   );

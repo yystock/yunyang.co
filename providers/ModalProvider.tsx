@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { SubscribeModal } from "@/components/modals/SubscribeModal";
+import { LoginModal } from "@/components/modals/LoginModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -17,6 +18,7 @@ export const ModalProvider = () => {
 
   return (
     <>
+      <LoginModal />
       <SubscribeModal />
     </>
   );

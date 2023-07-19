@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { X } from "lucide-react";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -34,21 +35,26 @@ export default function Modal({ isOpen, onClick, children }: ModalProps) {
 
   return (
     // backdrop|overlay
+
     <motion.div
+      key="modal"
       onClick={onClick}
-      className="fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/60"
+      className="fixed z-10 inset-0 flex items-center justify-center bg-black/60 backdrop-opacity-10 backdrop-invert-0"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full sm:w-10/12 md:w-8/12 lg:w-1/2 p-6"
+        className="relatiive mx-auto w-10/12 md:w-1/2 md:max-w-[700px] py-4 px-8 rounded-md flex flex-col bg-background items-center"
         variants={dropIn}
         initial="hidden"
         animate="visible"
         exit="exit"
       >
+        <button onClick={onClick} className="p-1 border-0 hover:opacity-70 absolute top-3 right-7">
+          <X color="black" />
+        </button>
         <div>{children}</div>
       </motion.div>
     </motion.div>

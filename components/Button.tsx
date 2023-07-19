@@ -29,16 +29,17 @@ const Button: React.FC<ButtonProps> = ({ isLoading, label, onClick, disabled, ic
         px-2 p-2
         font-semibold
         border-2
+        flex
+        items-center
+        justify-center
       `}
     >
       {isLoading && <Loader2 />}
       {Icon && (
         <Icon
           size={24}
-          className="
-            absolute
-            left-4
-            top-3
+          className="mx-4
+      
           "
         />
       )}

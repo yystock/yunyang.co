@@ -1,9 +1,20 @@
-import { getServerSession } from "next-auth/next";
+import { getServerSession, User } from "next-auth";
 
-import { authOptions } from "@/lib/auth";
+export const session = async ({ session, token }: any) => {
+  console.log("seesion route:");
+  session.user.id = token.id;
+  session.user.username = token.username as string;
+
+  return session;
+};
 
 export async function getCurrentUser() {
-  const session = await getServerSession(authOptions);
+  const authUserSession = await getServerSession({
+    callbacks: {
+      session,
+    },
+  });
 
-  return session?.user;
+  if (!authUserSession) return null;
+  return authUserSession.user;
 }

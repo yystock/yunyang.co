@@ -38,7 +38,6 @@ const NavItems = () => {
             <motion.span
               layoutId="bubble"
               className="absolute inset-0 z-10 mix-blend-difference bg-background/20"
-              style={{ borderRadius: 9999 }}
               transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
             />
           )}

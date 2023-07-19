@@ -2,13 +2,21 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { FC } from "react";
 
-const Logo = () => {
+interface LogoProps {
+  redirect?: boolean;
+}
+
+const Logo: FC<LogoProps> = ({ redirect = true }) => {
   const router = useRouter();
-
-  return (
-    <Image onClick={() => router.push("/")} className="hidden md:block cursor-pointer" src="/images/logo.svg" height="48" width="48" alt="Logo" />
-  );
+  if (redirect) {
+    return (
+      <Image onClick={() => router.push("/")} className="hidden md:block cursor-pointer" src="/images/logo.svg" height="68" width="68" alt="Logo" />
+    );
+  } else {
+    return <Image className="hidden md:block cursor-pointer" src="/images/logo.svg" height="68" width="68" alt="Logo" />;
+  }
 };
 
 export default Logo;

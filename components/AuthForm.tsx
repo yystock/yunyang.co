@@ -18,8 +18,9 @@ const AuthForm: FC<AuthFormProps> = ({ className, ...props }) => {
   const loginWithGoogle = async () => {
     setIsLoading(true);
     try {
-      const user = await signIn("google");
-      console.log("user", user);
+      await signIn("google");
+      router.push("/");
+      toast.success("User logged in");
     } catch (error) {
       toast.error("There was an error logging in with Google");
     } finally {
@@ -28,7 +29,7 @@ const AuthForm: FC<AuthFormProps> = ({ className, ...props }) => {
   };
 
   return (
-    <div className={cn("flex justify-center", className)} {...props}>
+    <div className={cn("w-full min-w-[380px]", className)} {...props}>
       <Button label={"Google"} isLoading={isLoading} onClick={loginWithGoogle} disabled={isLoading} icon={BsGoogle} />
     </div>
   );

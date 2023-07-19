@@ -6,6 +6,7 @@ import TwitterProvider from "next-auth/providers/twitter";
 import { db } from "@/db/connection";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { session } from "./session";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -19,13 +20,10 @@ export const authOptions: NextAuthOptions = {
       version: "2.0", // opt-in to Twitter OAuth 2.0
     }),
   ],
-  // pages: {
-  //   signIn: "/login",
-  // },
-
   session: {
     strategy: "jwt",
   },
+
   callbacks: {
     async signIn({ account, profile }) {
       console.log("Signin ");
@@ -33,7 +31,7 @@ export const authOptions: NextAuthOptions = {
         throw new Error("No profile");
       }
 
-      const user = await db
+      await db
         .insert(users)
         .values({
           id: crypto.randomUUID(),
@@ -46,16 +44,9 @@ export const authOptions: NextAuthOptions = {
       console.log("Signin Complete");
       return true;
     },
-    session: async ({ session, token }) => {
-      if (token) {
-        session.user.id = token.id;
-        session.user.image = token.picture;
-        session.user.username = token.username;
-        session.user.email = token.email;
-      }
-      return session;
-    },
+    session,
     jwt: async ({ user, token, account, profile }) => {
+      console.log("jwt route");
       if (profile) {
         const userExist = await db
           .select()
@@ -65,6 +56,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("No user found");
         }
         token.id = userExist[0].id;
+        console.log(token.id);
       }
       return token;
     },
