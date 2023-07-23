@@ -21,8 +21,6 @@ export const range = (start: number, end: number) => {
 export const getPagesCut = ({ pagesCount, pagesCutCount, currentPage }: { pagesCount: number; pagesCutCount: number; currentPage: number }) => {
   const ceiling = Math.ceil(pagesCutCount / 2);
   const floor = Math.floor(pagesCutCount / 2);
-  console.log("ceiling", ceiling);
-  console.log("floor", floor);
 
   if (pagesCount < pagesCutCount) {
     return { start: 1, end: pagesCount + 1 };

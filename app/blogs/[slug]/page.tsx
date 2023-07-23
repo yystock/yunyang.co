@@ -11,15 +11,21 @@ interface BlogPageProps {
     slug: string;
   };
 }
+
+export const revalidate = 60;
 export async function generateStaticParams() {
   const allBlogs = await db.select().from(blogs);
-  return allBlogs.map((blog) => ({
-    slug: blog.slug,
-  }));
+  console.log("all blogs", allBlogs);
+  return allBlogs.map((blog) => {
+    return {
+      slug: blog.slug,
+    };
+  });
 }
 
 export const generateMetadata = async ({ params }: BlogPageProps) => {
-  const slug = params?.slug;
+  console.log(params.slug);
+  const slug = params?.slug.toString();
 
   const select = await db.select().from(blogs).where(eq(blogs.slug, slug));
 
