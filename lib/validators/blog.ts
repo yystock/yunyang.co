@@ -16,3 +16,11 @@ export const blogSchema = insertBlogSchema.pick({
 export const selectBlogSchema = createSelectSchema(blogs, {
   content: z.any(),
 });
+
+export const blogCardSchema = selectBlogSchema.pick({
+  count: true,
+  title: true,
+  image: true,
+  slug: true,
+  created_at: true,
+});

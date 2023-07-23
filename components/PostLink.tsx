@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import ViewsCounter from "@/components/ViewsCounter";
+import ViewsCounter from "@/components/views-counter/ViewsCounter";
 import { formatDate } from "@/lib/utils";
 
 interface PostLinkProps {
@@ -12,14 +12,14 @@ interface PostLinkProps {
 const PostLink = ({ slug, title, date }: PostLinkProps) => {
   return (
     <article className="space-y-2">
-      <Link href={`/blog/${slug}`} className="block font-display text-2xl font-bold text-emerald-700 dark:text-emerald-600 sm:text-3xl">
+      <Link href={`/blogs/${slug}`} className="block font-display text-2xl font-bold sm:text-3xl">
         {title}
       </Link>
 
-      <div className="text-base font-medium text-zinc-800 dark:text-zinc-200 sm:text-lg">
+      <div className="text-base font-medium sm:text-lg">
         <time>{formatDate(date)}</time>
 
-        <span className="mx-2">&bull;</span>
+        <span className="mx-1">&bull;</span>
 
         <span>
           <ViewsCounter slug={slug} />

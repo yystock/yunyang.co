@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ModalProvider />
           <ToasterProvider />
           <Nav />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 container max-w-7xl">{children}</main>
           <Footer />
         </ThemeQueryProvider>
       </body>

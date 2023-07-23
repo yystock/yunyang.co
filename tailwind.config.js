@@ -7,6 +7,14 @@ module.exports = {
     container: {
       center: true,
     },
+    fill: (theme) => ({
+      foreground: "hsl(var(--foreground))",
+      accent: "hsl(var(--accent))",
+    }),
+    stroke: (theme) => ({
+      background: "hsl(var(--background))",
+      foreground: "hsl(var(--foreground))",
+    }),
     extend: {
       colors: {
         border: "hsl(var(--border))",

@@ -1,27 +1,25 @@
 import config from "@/config/config";
-import PostLink from "@/components/PostLink";
 import { db } from "@/db/connection";
 import { blogs } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-
-export async function generateStaticParams() {
-  const allBlogs = await db.select().from(blogs);
-
-  return allBlogs.map((blog) => ({
-    slug: blog.slug,
-  }));
-}
+import BlogViews from "./BlogViews";
 
 interface BlogPageProps {
   params: {
     slug: string;
   };
 }
+export async function generateStaticParams() {
+  const allBlogs = await db.select().from(blogs);
+  return allBlogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
 
 export const generateMetadata = async ({ params }: BlogPageProps) => {
-  const slug = params?.slug.toString();
+  const slug = params?.slug;
 
   const select = await db.select().from(blogs).where(eq(blogs.slug, slug));
 
@@ -51,16 +49,25 @@ export const generateMetadata = async ({ params }: BlogPageProps) => {
   } satisfies Metadata;
 };
 
-const BlogsPage = async () => {
-  const allBlogs = await db.select().from(blogs).orderBy(desc(blogs.created_at));
+const BlogPage = async ({ params }: BlogPageProps) => {
+  const select = await db.select().from(blogs).where(eq(blogs.slug, params.slug));
+
+  if (!select || select.length == 0) {
+    notFound();
+  }
+
+  const blog = select[0];
+
   return (
     <div>
-      <h1 className="my-10 font-display text-3xl font-bold sm:text-4xl">Blogs</h1>
-      {allBlogs.map((blog) => (
-        <PostLink slug={blog.slug} key={blog.slug} date={blog.created_at.toISOString()} title={blog.title} />
-      ))}
+      <div>{blog.title}</div>
+      <div>{blog.count}</div>
+      <div>{blog.created_at.toISOString()}</div>
+      <div>{blog.image}</div>
+      <BlogViews slug={blog.slug} />
+      <div></div>
     </div>
   );
 };
 
-export default BlogsPage;
+export default BlogPage;

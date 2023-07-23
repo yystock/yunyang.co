@@ -4,7 +4,7 @@ const config = {
     name: `Yun Yang`,
   },
   description: `Web Developer`,
-  siteUrl: ``,
+  siteUrl: `http://localhost:3000`,
   social: {
     github: `https://github.com/yystock`,
     twitter: ``,

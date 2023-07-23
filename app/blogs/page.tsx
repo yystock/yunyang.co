@@ -17,10 +17,9 @@ export const metadata = {
 const BlogsPage = async () => {
   const allBlogs = await db.select().from(blogs).orderBy(desc(blogs.created_at));
   return (
-    <div>
-      <h1 className="my-10 font-display text-3xl font-bold sm:text-4xl">Blogs</h1>
-      {allBlogs.map((blog) => (
-        <PostLink slug={blog.slug} key={blog.slug} date={blog.created_at.toISOString()} title={blog.title} />
+    <div className="mx-auto flex flex-col gap-4">
+      {allBlogs.map((blog, index) => (
+        <PostLink slug={blog.slug} key={index} date={blog.created_at.toISOString()} title={blog.title} />
       ))}
     </div>
   );
