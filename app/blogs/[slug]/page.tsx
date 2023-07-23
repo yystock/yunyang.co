@@ -15,7 +15,7 @@ interface BlogPageProps {
 export const revalidate = 60;
 export async function generateStaticParams() {
   const allBlogs = await db.select().from(blogs);
-  console.log("all blogs", allBlogs);
+
   return allBlogs.map((blog) => {
     return {
       slug: blog.slug,
@@ -24,7 +24,6 @@ export async function generateStaticParams() {
 }
 
 export const generateMetadata = async ({ params }: BlogPageProps) => {
-  console.log(params.slug);
   const slug = params?.slug.toString();
 
   const select = await db.select().from(blogs).where(eq(blogs.slug, slug));

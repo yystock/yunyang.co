@@ -3,6 +3,7 @@ import PostLink from "@/components/PostLink";
 import { db } from "@/db/connection";
 import { blogs } from "@/db/schema";
 import { desc } from "drizzle-orm";
+import { PageWrapper } from "@/components/PageWrapper";
 
 export const metadata = {
   title: `Blog | ${config.title}`,
@@ -17,11 +18,13 @@ export const metadata = {
 const BlogsPage = async () => {
   const allBlogs = await db.select().from(blogs).orderBy(desc(blogs.created_at));
   return (
-    <div className="mx-auto flex flex-col gap-4">
-      {allBlogs.map((blog, index) => (
-        <PostLink slug={blog.slug} key={index} date={blog.created_at.toISOString()} title={blog.title} />
-      ))}
-    </div>
+    <PageWrapper>
+      <div className="mx-auto flex flex-col gap-4">
+        {allBlogs.map((blog, index) => (
+          <PostLink slug={blog.slug} key={index} date={blog.created_at.toISOString()} title={blog.title} />
+        ))}
+      </div>
+    </PageWrapper>
   );
 };
 
