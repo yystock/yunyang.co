@@ -26,11 +26,9 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ account, profile }) {
-      console.log("Signin ");
       if (!profile?.email) {
         throw new Error("No profile");
       }
-
       await db
         .insert(users)
         .values({
@@ -40,13 +38,10 @@ export const authOptions: NextAuthOptions = {
           image: profile.image,
         })
         .onDuplicateKeyUpdate({ set: { username: profile.name, image: profile.image } });
-
-      console.log("Signin Complete");
       return true;
     },
     session,
     jwt: async ({ user, token, account, profile }) => {
-      console.log("jwt route");
       if (profile) {
         const userExist = await db
           .select()
@@ -56,7 +51,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error("No user found");
         }
         token.id = userExist[0].id;
-        console.log(token.id);
       }
       return token;
     },

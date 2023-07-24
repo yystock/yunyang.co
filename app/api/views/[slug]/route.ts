@@ -15,7 +15,6 @@ export const GET = async (request: NextRequest, { params }: ViewsProp) => {
   const slug = params.slug;
 
   const view = await db.select().from(blogs).where(eq(blogs.slug, slug));
-  console.log("View route", view);
   if (!view || view.length == 0) {
     return NextResponse.json(
       {

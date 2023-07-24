@@ -1,17 +1,13 @@
 "use client";
 import { FC, useEffect, useRef, useState } from "react";
-import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { selectBlogSchema } from "@/lib/validators/blog";
-import z from "zod";
+import { BlogCardType } from "@/lib/validators/blog";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-type FormData = z.infer<typeof selectBlogSchema>;
-
 interface CarouselProps {
-  topBlogs: FormData[];
+  topBlogs: BlogCardType[];
 }
 
 const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
@@ -49,6 +45,10 @@ const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
       carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
     }
   }, [currentIndex]);
+
+  if (!topBlogs || topBlogs.length == 0) {
+    return null;
+  }
 
   return (
     <section className="relative h-[21rem] mt-4 overflow-hidden pl-6 py-2 divide-y-2 divide-y-accent">

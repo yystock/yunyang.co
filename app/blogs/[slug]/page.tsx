@@ -4,6 +4,7 @@ import { blogs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import Blocks, { DataProp } from "editorjs-blocks-react-renderer";
 import BlogViews from "./BlogViews";
 
 interface BlogPageProps {
@@ -70,6 +71,7 @@ const BlogPage = async ({ params }: BlogPageProps) => {
       <div>{blog.created_at.toISOString()}</div>
       <div>{blog.image}</div>
       <BlogViews slug={blog.slug} />
+      <Blocks data={blog.content as DataProp} />
       <div></div>
     </div>
   );

@@ -3,7 +3,8 @@ import { db } from "@/db/connection";
 import { blogSchema } from "@/lib/validators/blog";
 import { z } from "zod";
 import { blogs, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -39,5 +40,34 @@ export async function POST(req: Request) {
     }
 
     return new Response("Could not post to subreddit at this time. Please try later", { status: 500 });
+  }
+}
+
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  try {
+    const { limit, page } = z
+      .object({
+        limit: z.string(),
+        page: z.string(),
+      })
+      .parse({
+        limit: url.searchParams.get("limit"),
+        page: url.searchParams.get("page"),
+      });
+
+    const allBlogs = await db
+      .select()
+      .from(blogs)
+      .orderBy(desc(blogs.created_at))
+      .limit(parseInt(limit))
+      .offset((parseInt(page) - 1) * parseInt(limit));
+    return NextResponse.json(allBlogs);
+  } catch (error) {
+    console.log("BLOG_GET[ERR]:", error);
+    if (error instanceof z.ZodError) {
+      return new Response(error.message, { status: 400 });
+    }
+    return new Response("Could not fetch posts", { status: 500 });
   }
 }
