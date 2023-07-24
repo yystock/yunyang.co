@@ -51,8 +51,8 @@ const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
   }
 
   return (
-    <section className="relative h-[21rem] mt-4 overflow-hidden pl-6 py-2 divide-y-2 divide-y-accent">
-      <div className="flex justify-between mb-4">
+    <section className="relative h-[21rem] mt-14 overflow-hidden pl-6 py-2 divide-y-2 divide-accent">
+      <div className="flex justify-between">
         <h2 className="font-display text-xl font-bold">Featured Blogs</h2>
         <div className="flex gap-3">
           <button
@@ -81,18 +81,18 @@ const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
       <motion.div
         id="inner"
         ref={carousel}
-        className="overflow-hidden h-full relative flex w-full gap-10 scroll-smooth snap-x snap-mandatory touch-pan-x"
+        className="mt-4 overflow-hidden h-full relative flex w-full gap-10 scroll-smooth snap-x snap-mandatory touch-pan-x"
       >
         {topBlogs.map((post, index) => (
           <div className="flex flex-col sm:min-w-[98%] md:min-w-[40%] lg:min-w-[30%] p-2">
             <div key={index} className="relative w-full snap-center flex-col flex h-[30rem]">
               {post.image && (
                 <Link href={`/blogs/${post.slug}`}>
-                  <Image fill={true} src={post.image} alt="{{title}}" />
+                  <Image fill={true} src={post.image} alt={post.title} className="mix-blend-multiply opacity-60 hover:opacity-100" />
                 </Link>
               )}
             </div>
-            <Link className="font-bold text-xl text-foreground h-full w-full" href={post.slug} aria-label={post.title}>
+            <Link className="font-bold text-md text-foreground h-full w-full" href={post.slug} aria-label={post.title}>
               {post.title}
             </Link>
           </div>

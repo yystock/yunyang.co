@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ToasterProvider />
           <Nav />
 
-          <main className="flex-1 container max-w-7xl">{children}</main>
+          <main className="flex-1 container max-w-6xl">{children}</main>
 
           <Analytics />
           <Footer />

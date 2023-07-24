@@ -30,23 +30,26 @@ const Pagination: FC<PaginationProps> = ({ initialBlogs }) => {
   const blogs = data?.pages.flatMap((page) => page) ?? initialBlogs;
 
   return (
-    <div className="px-10 ">
-      {blogs.map((b, i) => {
-        return (
-          <article className="flex flex-row " key={i}>
-            <div>{formatDate(b.created_at)}</div>
-            <h2>{b.title}</h2>
-            <div>{b.count} Views</div>
-          </article>
-        );
-      })}
+    <div className="px-10 max-w-3xl mt-14 mx-auto">
+      <div className="flex flex-col gap-1  mb-8">
+        {blogs.map((b, i) => {
+          return (
+            <article className="flex flex-row gap-2" key={i}>
+              <div className="text-accent">{formatDate(b.created_at)}</div>
+              <h2>{b.title}</h2>
+              <span className="flex-grow" />
+              <div>{b.count} Views</div>
+            </article>
+          );
+        })}
+      </div>
       <Button
         label={isFetchingNextPage ? "Loading more..." : hasNextPage ? "Load More" : "Nothing more to load"}
         onClick={() => fetchNextPage()}
         disabled={!hasNextPage || isFetchingNextPage}
+        className="max-w-sm mx-auto"
       />
-      <div>{isFetchingNextPage ? "Loading more..." : hasNextPage ? "Load More" : "Nothing more to load"}</div>
-      <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
+      <div className="text-center text-accent mt-2">{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
     </div>
   );
 };

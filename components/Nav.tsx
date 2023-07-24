@@ -9,7 +9,7 @@ const Nav = async () => {
   const currentUser = await getCurrentUser();
 
   return (
-    <header className="container bg-background mx-auto max-w-7xl flex flex-row items-center  gap-8 p-4 sm:min-h-[74px]">
+    <header className="container bg-background mx-auto max-w-6xl flex flex-row items-center  gap-8 sm:min-h-[74px]">
       <Logo />
       <NavItems />
       <span className="flex-grow" />

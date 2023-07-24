@@ -31,9 +31,9 @@ const NavItems = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-row flex-wrap items-center gap-1">
+    <nav className="flex flex-row flex-wrap items-center gap-2">
       {NAV_LINKS.map(({ label, href, activePath }) => (
-        <Link key={label} href={href} className="relative px-3 py-1 font-display font-semibold leading-none">
+        <Link key={label} href={href} className="relative px-3 py-1 font-semibold">
           {!!pathname && activePath.test(pathname) && (
             <motion.span
               layoutId="bubble"
