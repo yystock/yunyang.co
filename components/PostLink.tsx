@@ -11,12 +11,12 @@ interface PostLinkProps {
 
 const PostLink = ({ slug, title, date }: PostLinkProps) => {
   return (
-    <article className="space-y-2">
-      <Link href={`/blogs/${slug}`} className="block font-display text-2xl font-bold sm:text-3xl">
+    <article>
+      <Link href={`/blogs/${slug}`} className="block text-xl font-bold sm:text-2xl">
         {title}
       </Link>
 
-      <div className="text-base font-medium sm:text-lg">
+      <div className="font-medium text-md">
         <time>{formatDate(date)}</time>
 
         <span className="mx-1">&bull;</span>

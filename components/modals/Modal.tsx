@@ -46,14 +46,14 @@ export default function Modal({ isOpen, onClick, children }: ModalProps) {
     >
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className="relatiive mx-auto w-10/12 md:w-1/2 md:max-w-[700px] py-4 px-8 rounded-md flex flex-col bg-background items-center"
+        className="relatiive mx-auto w-10/12 md:w-1/3 md:max-w-[600px] py-4 px-4 rounded-md flex flex-col bg-background items-center"
         variants={dropIn}
         initial="hidden"
         animate="visible"
         exit="exit"
       >
         <button onClick={onClick} className="p-1 border-0 hover:opacity-70 absolute top-3 right-7">
-          <X color="black" />
+          <X />
         </button>
         <div>{children}</div>
       </motion.div>

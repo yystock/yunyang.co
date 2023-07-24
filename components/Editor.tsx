@@ -15,6 +15,8 @@ import axios from "axios";
 
 import "@/styles/editor.css";
 import Button from "./Button";
+import Input from "./Input";
+import { Loader2 } from "lucide-react";
 
 type FormData = z.infer<typeof blogSchema>;
 interface EditorProps {
@@ -48,7 +50,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const body = blog ? blogSchema.parse(blog) : null;
 
-  const { mutate: createPost } = useMutation({
+  const { mutate: createPost, isLoading } = useMutation({
     mutationFn: async ({ title, content, slug, image, published }: FormData) => {
       const payload: FormData = { title, content, image, slug, published };
       if (!id) {
@@ -59,7 +61,8 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
         return data;
       }
     },
-    onError: () => {
+    onError: (error) => {
+      console.log(error);
       return toast.error("Your post was not published. Please try again.");
     },
     onSuccess: () => {
@@ -114,6 +117,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
   }, []);
 
   useEffect(() => {
+    console.log(errors);
     if (Object.keys(errors).length) {
       for (const [_key, value] of Object.entries(errors)) {
         value;
@@ -162,38 +166,24 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
   }
 
   return (
-    <div className="w-full p-4 bg-zinc-50 rounded-lg border border-zinc-200">
-      <form id="blog-form" className="w-fit" onSubmit={handleSubmit(onSubmit)}>
-        <div className="prose prose-stone dark:prose-invert">
-          <TextareaAutosize
-            autoFocus
-            id="title"
-            defaultValue={blog?.title}
-            placeholder="Title"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
-            {...register("title")}
-          />
-          <TextareaAutosize
-            {...register("slug")}
-            placeholder="Slug"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
-          />
-          <TextareaAutosize
-            {...register("image")}
-            placeholder="Image"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
-          />
-
-          <label htmlFor="">Published</label>
-          <input type="checkbox" placeholder="Published" {...register("published")} className="mx-3" />
-          <div id="editor" className="min-h-[500px]" />
-          <p className="text-sm text-gray-500">
-            Use <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">Tab</kbd> to open the command menu.
+    <div className="w-full p-4 bg-background rounded-lg border">
+      <form id="blog-form" className="w-full px-10" onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-full prose prose-stone dark:prose-invert flex flex-col gap-4">
+          <Input register={register("title")} id="title" label="Title" errors={errors} disabled={isLoading} />
+          <Input register={register("slug")} id="slug" label="Slug" errors={errors} disabled={isLoading} />
+          <Input register={register("image")} id="image" label="Image" errors={errors} disabled={isLoading} />
+          <div className="mt-2 items-center flex">
+            <input type="checkbox" placeholder="Published" {...register("published")} className="mx-3" />
+            <label htmlFor="">Published</label>
+          </div>
+          <div id="editor" className="min-h-[500px] bg-background mt-10" />
+          <p className="text-sm">
+            Use <kbd className="rounded-md border bg-background px-1 text-xs uppercase">Tab</kbd> to open the command menu.
           </p>
         </div>
       </form>
-      <button type="submit" form="blog-form">
-        Submit
+      <button className="mt-4 bg-accent rounded-xl w-full" type="submit" form="blog-form" disabled={isLoading}>
+        {isLoading ? <Loader2 /> : "Submit"}
       </button>
     </div>
   );

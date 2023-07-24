@@ -41,7 +41,7 @@ const BlogViews = ({ slug }: BlogViewsProps) => {
   }, []);
 
   return (
-    <p>
+    <p className="text-accent">
       <ViewsCounter slug={slug} />
       {` views`}
     </p>

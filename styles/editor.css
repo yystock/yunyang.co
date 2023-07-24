@@ -9,7 +9,7 @@
 .dark .ce-popover,
 .dark .ce-toolbar__plus:hover {
   background: theme("colors.accent.DEFAULT");
-  color: inherit;
+  color: theme("colors.foreground");
   border-color: theme("colors.border");
 }
 
@@ -18,23 +18,26 @@
 .dark .ce-toolbox__button,
 .dark .cdx-settings-button,
 .dark .ce-toolbar__plus {
-  color: inherit;
+  background: theme("colors.background");
+  color: theme("colors.foreground");
 }
 
 .dark .ce-popover__item-icon,
 .dark .ce-conversion-tool__icon {
-  background-color: theme("colors.accent.DEFAULT");
+  background-color: theme("colors.background");
+  color: theme("colors.foreground");
   box-shadow: none;
 }
 
 .dark .cdx-search-field {
   border-color: theme("colors.border");
-  background: theme("colors.foreground");
-  color: inherit;
+  background: theme("colors.background");
+  color: theme("colors.foreground");
 }
 
 .dark ::selection {
-  background: theme("colors.accent.DEFAULT");
+  background: theme("colors.background");
+  color: theme("colors.foreground");
 }
 
 .dark .cdx-settings-button:hover,
@@ -47,8 +50,8 @@
 .dark .ce-popover__item:hover,
 .dark .ce-conversion-tool:hover,
 .dark .ce-toolbar__settings-btn:hover {
-  background-color: theme("colors.accent.DEFAULT");
-  color: theme("colors.accent.foreground");
+  background-color: theme("colors.background");
+  color: theme("colors.foreground");
 }
 
 .dark .cdx-notify--error {
@@ -57,5 +60,5 @@
 
 .dark .cdx-notify__cross::after,
 .dark .cdx-notify__cross::before {
-  background: white;
+  background: theme("colors.background");
 }

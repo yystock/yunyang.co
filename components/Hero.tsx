@@ -17,7 +17,7 @@ export default function HeroBanner() {
         </h1>
 
         <div>I am a full stack software engineer with a primary focus on JavaScript technologies.</div>
-        <div className="flex gap-1">
+        <div className="mt-1 flex gap-1">
           <Image className="block" src="/images/react.svg" height="24" width="24" alt="react" />
           <Image className="block" src="/images/next-js.svg" height="24" width="24" alt="next" />
           <Image className="block" src="/images/node-js.svg" height="24" width="24" alt="node" />

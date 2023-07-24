@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Blocks, { DataProp } from "editorjs-blocks-react-renderer";
 import BlogViews from "./BlogViews";
+import Image from "next/image";
+import { formatDate } from "@/lib/utils";
 
 interface BlogPageProps {
   params: {
@@ -65,14 +67,16 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   const blog = select[0];
 
   return (
-    <div>
-      <div>{blog.title}</div>
-      <div>{blog.count}</div>
-      <div>{blog.created_at.toISOString()}</div>
-      <div>{blog.image}</div>
-      <BlogViews slug={blog.slug} />
+    <div className="max-w-3xl mx-auto relative min-h-screen mt-8">
+      <div className="text-center font-bold text-2xl my-1">{blog.title}</div>
+      <div className="flex flex-row justify-center mx-auto">
+        <div>{formatDate(blog.created_at.toISOString())}</div>
+        <span className="mx-1">&bull;</span>
+        <BlogViews slug={blog.slug} />
+      </div>
+      <div className="relative w-full h-72 mt-4 mb-8">{blog.image && <Image src={blog.image} fill={true} alt={blog.title} />}</div>
+
       <Blocks data={blog.content as DataProp} />
-      <div></div>
     </div>
   );
 };
