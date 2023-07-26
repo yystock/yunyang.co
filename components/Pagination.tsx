@@ -35,8 +35,8 @@ const Pagination: FC<PaginationProps> = ({ initialBlogs }) => {
       <div className="flex flex-col gap-1  mb-8">
         {blogs.map((b, i) => {
           return (
-            <Link href={`/blogs/${b.slug}`}>
-              <article className="flex flex-row gap-2" key={i}>
+            <Link href={`/blogs/${b.slug}`} key={i}>
+              <article className="flex flex-row gap-2">
                 <div className="text-accent">{formatDate(b.created_at)}</div>
                 <h2>{b.title}</h2>
                 <span className="flex-grow" />

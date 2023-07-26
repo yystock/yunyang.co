@@ -84,7 +84,7 @@ const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
         className="pt-4 overflow-hidden h-full relative flex w-full gap-10 scroll-smooth snap-x snap-mandatory touch-pan-x"
       >
         {topBlogs.map((post, index) => (
-          <div key={index} className="flex flex-col sm:min-w-[98%] md:min-w-[40%] lg:min-w-[30%] p-2">
+          <div key={index} className="flex flex-col min-w-[98%] md:min-w-[40%] lg:min-w-[30%] p-2">
             <div className="relative w-full snap-center flex-col flex h-[30rem]">
               {post.image && (
                 <Link href={`/blogs/${post.slug}`}>

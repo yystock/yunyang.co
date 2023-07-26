@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "migrations:generate": "drizzle-kit generate:mysql",
-    "migrations:push": "node -r esbuild-register db/migrate.ts",
+    "migrations:push": "node -r db/migrate.ts",
     "db:push": "drizzle-kit push:mysql",
     "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts"
   },
@@ -34,6 +34,7 @@
     "drizzle-zod": "^0.4.4",
     "editorjs-blocks-react-renderer": "^1.3.0",
     "framer-motion": "^10.12.21",
+    "html-react-parser": "^4.2.0",
     "lucide-react": "^0.260.0",
     "next": "^13.4.12",
     "next-auth": "^4.22.1",

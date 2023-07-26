@@ -8,6 +8,9 @@ import Blocks, { DataProp } from "editorjs-blocks-react-renderer";
 import BlogViews from "./BlogViews";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
+import { renderConfig } from "@/config/render";
+import { Code } from "@/components/renderers/CustomCodeRenderer";
+import CustomImageRenderer from "@/components/renderers/CustomImageRenderer";
 
 interface BlogPageProps {
   params: {
@@ -15,7 +18,6 @@ interface BlogPageProps {
   };
 }
 
-export const revalidate = 60;
 export async function generateStaticParams() {
   const allBlogs = await db.select().from(blogs);
 
@@ -76,7 +78,14 @@ const BlogPage = async ({ params }: BlogPageProps) => {
       </div>
       <div className="relative w-full h-72 mt-4 mb-8">{blog.image && <Image src={blog.image} fill={true} alt={blog.title} />}</div>
 
-      <Blocks data={blog.content as DataProp} />
+      <Blocks
+        data={blog.content as DataProp}
+        config={renderConfig}
+        renderers={{
+          code: Code,
+          Image: CustomImageRenderer,
+        }}
+      />
     </div>
   );
 };

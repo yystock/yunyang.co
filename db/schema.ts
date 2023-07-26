@@ -10,7 +10,7 @@ export const blogs = mysqlTable(
     title: varchar("title", { length: 255 }).notNull(),
     image: text("image"),
     content: json("content"),
-    created_at: timestamp("created_at").notNull().defaultNow().onUpdateNow(),
+    created_at: timestamp("created_at").notNull().defaultNow(),
     updated_at: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
     published: boolean("published").default(false).notNull(),
   },

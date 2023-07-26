@@ -8,13 +8,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { toast } from "react-hot-toast";
-import TextareaAutosize from "react-textarea-autosize";
 import { useMutation } from "@tanstack/react-query";
 import { blogSchema } from "@/lib/validators/blog";
 import axios from "axios";
 
 import "@/styles/editor.css";
-import Button from "./Button";
 import Input from "./Input";
 import { Loader2 } from "lucide-react";
 
@@ -182,7 +180,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
           </p>
         </div>
       </form>
-      <button className="mt-4 bg-accent rounded-xl w-full" type="submit" form="blog-form" disabled={isLoading}>
+      <button className="mt-4 bg-accent rounded-xl w-full items-center justify-center flex" type="submit" form="blog-form" disabled={isLoading}>
         {isLoading ? <Loader2 /> : "Submit"}
       </button>
     </div>

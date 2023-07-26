@@ -6,15 +6,15 @@ Next.js Drizzle ORM, React Email, Tailwind, Upstash
 
 ##### Features
 
-- [ ] SEO
-- [ ] Views
-- [ ] Admin Dashboard
-- [ ] WYSIWYG Editor
-- [ ] Custom UI Component
-- [ ] Subscription
+- [x] SEO
+- [x] Views
+- [x] Admin Dashboard
+- [x] WYSIWYG Editor
+- [x] Custom UI Component
+- [x] Subscription
 - [ ] Email
-- [ ] Edge Functions
-- [ ] Loading State
+- [x] Edge Functions
+- [x] Loading State
 
 ## Getting Started
 

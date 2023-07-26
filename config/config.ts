@@ -3,12 +3,12 @@ const subject = "Hello from React App";
 const body = "This is the email body.";
 
 const config = {
-  title: `Yun Yang`,
+  title: `Blog | Yun`,
   author: {
-    name: `Yun Yang`,
+    name: `Yun`,
   },
-  description: `Web Developer`,
-  siteUrl: `http://localhost:3000`,
+  description: `Web Developer, Software Engineer`,
+  siteUrl: `https://yunyang-co.vercel.app/`,
   social: {
     github: `https://github.com/yystock`,
     twitter: ``,
