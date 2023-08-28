@@ -8,7 +8,7 @@ import NotificationEmail from "@/components/emails/NotificationEmail";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const my_email = process.env.MY_EMAIL as string;
 
-export default async function GET(req: NextRequest) {
+export async function GET(request: Request) {
   try {
     const allBlogs = await db.select({ sum: sql<number>`sum(count)` }).from(blogs);
 
