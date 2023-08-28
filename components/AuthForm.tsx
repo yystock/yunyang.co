@@ -18,7 +18,7 @@ const AuthForm: FC<AuthFormProps> = ({ className, ...props }) => {
   const loginWithGoogle = async () => {
     setIsLoading(true);
     try {
-      await signIn("google");
+      await signIn("google", { callbackUrl: "/" });
       router.push("/");
       toast.success("User logged in");
     } catch (error) {

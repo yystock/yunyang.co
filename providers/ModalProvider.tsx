@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { SubscribeModal } from "@/components/modals/SubscribeModal";
 import { LoginModal } from "@/components/modals/LoginModal";
+import { SearchModal } from "@/components/modals/SearchModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
     <>
       <LoginModal />
       <SubscribeModal />
+      <SearchModal />
     </>
   );
 };
