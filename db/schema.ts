@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { int, mysqlTable, varchar, mysqlEnum, text, timestamp, index, json, boolean } from "drizzle-orm/mysql-core";
 
 export const blogs = mysqlTable(
@@ -8,10 +9,16 @@ export const blogs = mysqlTable(
     id: varchar("id", { length: 191 }).primaryKey().notNull(),
     user_id: varchar("user_id", { length: 191 }).notNull(),
     title: varchar("title", { length: 255 }).notNull(),
+    description: varchar("description", { length: 255 }),
     image: text("image"),
     content: json("content"),
-    created_at: timestamp("created_at").notNull().defaultNow(),
-    updated_at: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+    created_at: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updated_at: timestamp("updated_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .onUpdateNow()
+      .notNull(),
     published: boolean("published").default(false).notNull(),
   },
   (post) => ({
@@ -24,6 +31,8 @@ export const users = mysqlTable("users", {
   username: varchar("username", { length: 50 }).notNull(),
   email: varchar("email", { length: 255 }).unique().notNull(),
   image: text("image"),
-  createdAt: timestamp("createdAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
   role: mysqlEnum("role", ["user", "yun"]).default("user").notNull(),
 });

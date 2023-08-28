@@ -49,13 +49,12 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
   const body = blog ? blogSchema.parse(blog) : null;
 
   const { mutate: createPost, isLoading } = useMutation({
-    mutationFn: async ({ title, content, slug, image, published }: FormData) => {
-      const payload: FormData = { title, content, image, slug, published };
+    mutationFn: async (values: FormData) => {
       if (!id) {
-        const { data } = await axios.post("/api/blogs", payload);
+        const { data } = await axios.post("/api/blogs", values);
         return data;
       } else {
-        const { data } = await axios.patch(`/api/blogs/${id}`, payload);
+        const { data } = await axios.patch(`/api/blogs/${id}`, values);
         return data;
       }
     },
@@ -154,6 +153,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
       slug: data.slug,
       image: data.image,
       published: data.published,
+      description: data.description,
     };
 
     createPost(payload);
@@ -169,6 +169,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
         <div className="w-full prose prose-stone dark:prose-invert flex flex-col gap-4">
           <Input register={register("title")} id="title" label="Title" errors={errors} disabled={isLoading} />
           <Input register={register("slug")} id="slug" label="Slug" errors={errors} disabled={isLoading} />
+          <Input register={register("description")} id="description" label="Description" errors={errors} disabled={isLoading} />
           <Input register={register("image")} id="image" label="Image" errors={errors} disabled={isLoading} />
           <div className="mt-2 items-center flex">
             <input type="checkbox" placeholder="Published" {...register("published")} className="mx-3" />

@@ -4,17 +4,26 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 const insertBlogSchema = createInsertSchema(blogs, {
   content: z.any(),
-  title: z.string().min(3, {
-    message: "Title must be at least 3 characters long",
-  }),
+  title: z
+    .string()
+    .min(3, {
+      message: "Title must be at least 3 characters long",
+    })
+    .max(255, { message: "Title must be at most 255 characters long" }),
   slug: z.string().min(3, {
     message: "Title must be at least 3 characters long",
   }),
+  description: z
+    .string()
+    .min(3, { message: "Title must be at least 3 characters long" })
+    .max(255, { message: "Description must be at most 255 characters long" })
+    .optional(),
 });
 export const blogSchema = insertBlogSchema.pick({
   image: true,
   title: true,
   slug: true,
+  description: true,
   content: true,
   published: true,
 });
