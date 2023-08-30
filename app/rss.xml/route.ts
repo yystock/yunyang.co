@@ -22,11 +22,11 @@ export const GET = async () => {
   for (const post of allBlogs) {
     feed.addItem({
       title: post.title,
-      id: `https://yunyang-co.vercel.app/blog/${post.slug}`,
-      link: `https://yunyang-co.vercel.app/blog/${post.slug}`,
+      id: `https://yunyang-co.vercel.app/blogs/${post.slug}`,
+      link: `https://yunyang-co.vercel.app/blogs/${post.slug}`,
       description: post.description ? post.description : undefined,
       date: dayjs(post.created_at).toDate(),
-      image: `https://yunyang-co.vercel.app${post.image}`,
+      image: `${post.image}`,
     });
   }
 
