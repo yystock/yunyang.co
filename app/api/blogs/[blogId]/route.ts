@@ -4,6 +4,7 @@ import { db } from "@/db/connection";
 import { blogs } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { blogSchema } from "@/lib/validators/blog";
+import { revalidatePath } from "next/cache";
 const routeContextSchema = z.object({
   params: z.object({
     blogId: z.string(),
@@ -19,6 +20,7 @@ export async function DELETE(req: Request, context: z.infer<typeof routeContextS
     }
 
     await db.delete(blogs).where(eq(blogs.id, params.blogId));
+    revalidatePath("/rss.xml");
     return new Response(null, { status: 204 });
   } catch (error) {
     console.log("[BlogS_DELETE]", error);
@@ -51,6 +53,8 @@ export async function PATCH(req: Request, context: z.infer<typeof routeContextSc
         published: body.published,
       })
       .where(eq(blogs.id, params.blogId));
+    revalidatePath("/rss.xml");
+
     return new Response(null, { status: 200 });
   } catch (error) {
     console.log("[BlogS_PATCH]", error);

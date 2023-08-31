@@ -3,8 +3,6 @@ import { db } from "@/db/connection";
 import { blogs } from "@/db/schema";
 import { sql } from "drizzle-orm";
 
-export const runtime = "edge";
-
 export const GET = async () => {
   const result = await db
     .select({

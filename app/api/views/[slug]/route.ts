@@ -3,8 +3,6 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db/connection";
 import { blogs } from "@/db/schema";
 
-export const runtime = "edge";
-
 interface ViewsProp {
   params: {
     slug: string;

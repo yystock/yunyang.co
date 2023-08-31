@@ -5,6 +5,7 @@ import { z } from "zod";
 import { blogs, users } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
   try {
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
       user_id: currentUser.id,
       id: crypto.randomUUID(),
     });
+    revalidatePath("/rss.xml");
 
     return new Response("OK");
   } catch (error) {
