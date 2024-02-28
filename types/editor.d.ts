@@ -6,3 +6,4 @@ declare module "@editorjs/header";
 declare module "@editorjs/inline-code";
 declare module "@editorjs/simple-image";
 declare module "@editorjs/checklist";
+declare module "@editorjs/image";

@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { image, title, content, slug, published } = blogSchema.parse(body);
+    const { image, title, content, slug, published, description } = blogSchema.parse(body);
 
     const currentUser = await getCurrentUser();
 
@@ -27,6 +27,7 @@ export async function POST(req: Request) {
       title: title,
       slug: slug,
       published: published,
+      description: description,
       content: content,
       image: image,
       user_id: currentUser.id,

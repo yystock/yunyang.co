@@ -1,4 +1,6 @@
-export const renderConfig = {
+import { ConfigProp } from "editorjs-blocks-react-renderer";
+
+export const renderConfig: ConfigProp = {
   delimiter: {
     className: "border border-2 w-16 mx-auto",
   },
@@ -9,7 +11,8 @@ export const renderConfig = {
     className: "font-bold",
   },
   image: {
-    className: "w-full max-w-screen-md",
+    className: "w-full max-w-screen-md text-center",
+
     actionsClassNames: {
       stretched: "w-full h-80 object-cover",
       withBorder: "border border-2",

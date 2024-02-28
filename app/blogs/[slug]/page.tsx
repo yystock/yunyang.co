@@ -11,6 +11,7 @@ import { formatDate } from "@/lib/utils";
 import { renderConfig } from "@/config/render";
 import { Code } from "@/components/renderers/CustomCodeRenderer";
 import CustomImageRenderer from "@/components/renderers/CustomImageRenderer";
+import "./page.css";
 
 interface BlogPageProps {
   params: {
@@ -69,14 +70,16 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   const blog = select[0];
 
   return (
-    <div className="max-w-3xl mx-auto relative min-h-screen mt-8">
+    <div className="blog-page max-w-3xl mx-auto relative min-h-screen mt-8">
       <div className="text-center font-bold text-2xl my-1">{blog.title}</div>
       <div className="flex flex-row justify-center mx-auto">
-        <div>{formatDate(blog.created_at.toISOString())}</div>
-        <span className="mx-1">&bull;</span>
+        <p>{formatDate(blog.created_at.toISOString())}</p>
+        <span className="mx-1 py-1">&bull;</span>
         <BlogViews slug={blog.slug} />
       </div>
-      <div className="relative w-full h-72 mt-4 mb-8">{blog.image && <Image src={blog.image} fill={true} alt={blog.title} />}</div>
+      <div className="relative w-full h-72 mt-4 mb-8">
+        {blog.image && <Image src={blog.image} fill={true} alt={blog.title} className="object-cover" />}
+      </div>
 
       <Blocks
         data={blog.content as DataProp}

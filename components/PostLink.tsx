@@ -11,8 +11,8 @@ interface PostLinkProps {
 
 const PostLink = ({ slug, title, date }: PostLinkProps) => {
   return (
-    <article>
-      <Link href={`/blogs/${slug}`} className="block text-xl font-bold sm:text-2xl">
+    <article className=" px-4 py-3 rounded-lg hover:shadow-2xl">
+      <Link href={`/blogs/${slug}`} className="block text-xl font-bold sm:text-2xl" scroll={false}>
         {title}
       </Link>
 

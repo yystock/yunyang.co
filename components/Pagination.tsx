@@ -12,21 +12,18 @@ interface PaginationProps {
 }
 
 const Pagination: FC<PaginationProps> = ({ initialBlogs }) => {
-  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isFetching } = useInfiniteQuery(
-    ["infinite-query"],
-    async ({ pageParam = 1 }) => {
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isFetching } = useInfiniteQuery({
+    queryKey: ["infinite-query"],
+    queryFn: async ({ pageParam = 1 }) => {
       const query = `/api/blogs?limit=${2}&page=${pageParam}`;
       const { data } = await axios.get(query);
       return data as BlogListType[];
     },
-
-    {
-      getNextPageParam: (_, pages) => {
-        return pages.length + 1;
-      },
-      initialData: { pages: [initialBlogs], pageParams: [1] },
-    }
-  );
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return pages.length + 1;
+    },
+  });
 
   const blogs = data?.pages.flatMap((page) => page) ?? initialBlogs;
 
@@ -35,10 +32,10 @@ const Pagination: FC<PaginationProps> = ({ initialBlogs }) => {
       <div className="flex flex-col gap-1  mb-8">
         {blogs.map((b, i) => {
           return (
-            <Link href={`/blogs/${b.slug}`} key={i}>
-              <article className="flex flex-row gap-2">
+            <Link href={`/blogs/${b.slug}`} key={i} scroll={false}>
+              <article className="flex flex-row gap-2 items-center">
                 <div className="text-accent">{formatDate(b.created_at)}</div>
-                <h2>{b.title}</h2>
+                <p>{b.title}</p>
                 <span className="flex-grow" />
                 <div>{b.count} Views</div>
               </article>
