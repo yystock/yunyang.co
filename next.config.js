@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   images: {
-    domains: ["res.cloudinary.com", "avatars.githubusercontent.com", "lh3.googleusercontent.com", "pbs.twimg.com"],
+    remotePatterns: [
+      { hostname: "res.cloudinary.com" },
+      { hostname: "avatars.githubusercontent.com" },
+      { hostname: "lh3.googleusercontent.com" },
+      { hostname: "pbs.twimg.com" },
+      { hostname: "worker-ai-anystyles.yy763831702.workers.dev" },
+    ],
   },
 };
 

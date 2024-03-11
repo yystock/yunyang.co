@@ -6,13 +6,17 @@ import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { ThemeQueryProvider } from "@/providers/ThemeQueryProvider";
 import ToasterProvider from "@/providers/ToastProvider";
-import { Analytics } from "@vercel/analytics/react";
 import config from "@/config/config";
+import NextAuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: config.title,
+  metadatabase: config.siteUrl,
+  title: {
+    default: config.title,
+    template: "%s | Yun",
+  },
   description: config.description,
   openGraph: {
     title: config.title,
@@ -37,16 +41,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("antialiased bg-background text-foreground min-h-screen flex flex-col", inter.className)}>
-        <ThemeQueryProvider attribute="class" defaultTheme="system" enableSystem>
-          <ModalProvider />
-          <ToasterProvider />
-          <Nav />
+        <NextAuthProvider>
+          <ThemeQueryProvider attribute="class" defaultTheme="system" enableSystem>
+            <ModalProvider />
+            <ToasterProvider />
+            <Nav />
 
-          <main className="flex-1 container max-w-6xl">{children}</main>
+            <main className="flex-1 container max-w-6xl">{children}</main>
 
-          <Analytics />
-          <Footer />
-        </ThemeQueryProvider>
+            <Footer />
+          </ThemeQueryProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

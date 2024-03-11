@@ -20,11 +20,6 @@ const NAV_LINKS: {
     href: "/blogs",
     activePath: /^\/blogs*/,
   },
-  {
-    label: "About",
-    href: "/about",
-    activePath: /^\/about*/,
-  },
 ];
 
 const NavItems = () => {
@@ -33,11 +28,11 @@ const NavItems = () => {
   return (
     <nav className="flex flex-row flex-wrap items-center gap-2">
       {NAV_LINKS.map(({ label, href, activePath }) => (
-        <Link key={label} href={href} className="relative px-3 py-1 font-semibold">
+        <Link key={label} scroll={false} href={href} className="relative px-3 py-1 font-semibold">
           {!!pathname && activePath.test(pathname) && (
             <motion.span
               layoutId="bubble"
-              className="absolute inset-0 -bottom-2 z-10 border-b-2 border-b-accent"
+              className="absolute inset-0 -bottom-1 z-10 border-b-2 border-b-accent"
               transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
             />
           )}

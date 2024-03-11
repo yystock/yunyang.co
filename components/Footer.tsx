@@ -9,7 +9,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
     <footer className={cn(className)}>
       <div className="max-w-6xl container mt-32 flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <Logo />
+          <Logo className="h-12 w-12" />
           <p className="text-center text-sm leading-loose md:text-left">
             Built by{" "}
             <a href={config.social.github} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
@@ -22,6 +22,10 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
             . Contact me{" "}
             <a href={config.social.email} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
               Email
+            </a>{" "}
+            or{" "}
+            <a href={config.social.twitter} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-4">
+              Twitter
             </a>
           </p>
         </div>

@@ -33,3 +33,7 @@
 h1 {
   @apply scroll-m-20 text-4xl font-bold tracking-tight;
 }
+
+h4 {
+  @apply font-medium text-base;
+}

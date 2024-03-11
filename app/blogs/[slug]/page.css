@@ -1,0 +1,19 @@
+.blog-page a {
+  color: hsl(7 60 52);
+  text-decoration: underline;
+}
+.blog-page p {
+  padding: 0 0.5rem;
+}
+.blog-page img {
+  margin-left: auto;
+  margin-right: auto;
+
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.blog-page h2 {
+  padding-top: 2rem;
+  font: bold;
+  font-size: x-large;
+}

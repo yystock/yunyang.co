@@ -51,6 +51,7 @@ export async function PATCH(req: Request, context: z.infer<typeof routeContextSc
         content: body.content,
         image: body.image,
         published: body.published,
+        description: body.description,
       })
       .where(eq(blogs.id, params.blogId));
     revalidatePath("/rss.xml");

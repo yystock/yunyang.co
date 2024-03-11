@@ -39,3 +39,8 @@ next-env.d.ts
 
 # testing
 test.ts
+sample.ts
+db/migrations
+
+
+pscale_dump_yunyang_main_20240309_112024

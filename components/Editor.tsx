@@ -48,7 +48,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const body = blog ? blogSchema.parse(blog) : null;
 
-  const { mutate: createPost, isLoading } = useMutation({
+  const { mutate: createPost, isPending } = useMutation({
     mutationFn: async (values: FormData) => {
       if (!id) {
         const { data } = await axios.post("/api/blogs", values);
@@ -79,6 +79,7 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
     const LinkTool = (await import("@editorjs/link")).default;
     const InlineCode = (await import("@editorjs/inline-code")).default;
     const SimpleImage = (await import("@editorjs/simple-image")).default;
+    const ImageTool = (await import("@editorjs/image")).default;
 
     if (!ref.current) {
       const editor = new EditorJS({
@@ -98,7 +99,22 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
             },
           },
           image: {
-            class: SimpleImage,
+            class: ImageTool,
+            config: {
+              uploader: {
+                async uploadByFile(file: File) {
+                  const formData = new FormData();
+                  formData.append("file", file);
+                  const res = await axios.post("/api/r2", formData);
+                  return {
+                    success: 1,
+                    file: {
+                      url: res?.data.url,
+                    },
+                  };
+                },
+              },
+            },
           },
           checkList: {
             class: CheckList,
@@ -107,14 +123,20 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
           code: Code,
           inlineCode: InlineCode,
           table: Table,
-          embed: Embed,
+          embed: {
+            class: Embed,
+            config: {
+              services: {
+                youtube: true,
+              },
+            },
+          },
         },
       });
     }
   }, []);
 
   useEffect(() => {
-    console.log(errors);
     if (Object.keys(errors).length) {
       for (const [_key, value] of Object.entries(errors)) {
         value;
@@ -167,10 +189,10 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
     <div className="w-full p-4 bg-background rounded-lg border">
       <form id="blog-form" className="w-full px-10" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full prose prose-stone dark:prose-invert flex flex-col gap-4">
-          <Input register={register("title")} id="title" label="Title" errors={errors} disabled={isLoading} />
-          <Input register={register("slug")} id="slug" label="Slug" errors={errors} disabled={isLoading} />
-          <Input register={register("description")} id="description" label="Description" errors={errors} disabled={isLoading} />
-          <Input register={register("image")} id="image" label="Image" errors={errors} disabled={isLoading} />
+          <Input register={register("title")} id="title" label="Title" errors={errors} disabled={isPending} />
+          <Input register={register("slug")} id="slug" label="Slug" errors={errors} disabled={isPending} />
+          <Input register={register("description")} id="description" label="Description" errors={errors} disabled={isPending} />
+          <Input register={register("image")} id="image" label="Image" errors={errors} disabled={isPending} />
           <div className="mt-2 items-center flex">
             <input type="checkbox" placeholder="Published" {...register("published")} className="mx-3" />
             <label htmlFor="">Published</label>
@@ -181,8 +203,8 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
           </p>
         </div>
       </form>
-      <button className="mt-4 bg-accent rounded-xl w-full items-center justify-center flex" type="submit" form="blog-form" disabled={isLoading}>
-        {isLoading ? <Loader2 /> : "Submit"}
+      <button className="mt-4 bg-accent rounded-xl w-full items-center justify-center flex" type="submit" form="blog-form" disabled={isPending}>
+        {isPending ? <Loader2 /> : "Submit"}
       </button>
     </div>
   );

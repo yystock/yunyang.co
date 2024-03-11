@@ -14,8 +14,8 @@ export default async function DashboardBlogs({ searchParams }: DashboardBlogsPro
   const { page, per_page } = searchParams;
   const take = typeof per_page === "string" ? parseInt(per_page) : 5;
   const skip = typeof page === "string" ? (parseInt(page) - 1) * take : 0;
-  const allBlogs = await db.select().from(blogs).orderBy(desc(blogs.created_at)).limit(take).offset(skip);
 
+  const allBlogs = await db.select().from(blogs).orderBy(desc(blogs.created_at)).limit(take).offset(skip);
   const totalBlogs = await db.select({ count: sql<number>`count(*)` }).from(blogs);
   const pageCount = totalBlogs[0].count === 0 ? 1 : Math.ceil(totalBlogs[0].count / take);
   const currentPage = skip / take + 1;

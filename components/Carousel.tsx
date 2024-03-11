@@ -84,20 +84,26 @@ const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
         className="pt-4 overflow-hidden h-full relative flex w-full gap-10 scroll-smooth snap-x snap-mandatory touch-pan-x"
       >
         {topBlogs.map((post, index) => (
-          <div key={index} className="flex flex-col min-w-[98%] md:min-w-[40%] lg:min-w-[30%] p-2">
-            <div className="relative w-full snap-center flex-col flex h-[30rem]">
+          <div key={index} className="flex flex-col min-w-[98%] md:min-w-[40%] lg:min-w-[30%] p-2 ">
+            <div className="relative w-full snap-center flex-col flex h-[30rem] ">
               {post.image && (
-                <Link href={`/blogs/${post.slug}`}>
+                <Link href={`/blogs/${post.slug}`} scroll={false}>
                   <Image
                     fill={true}
                     src={post.image}
                     alt={post.title}
-                    className="mix-blend-color-burn dark:mix-blend-color-dodge opacity-70 hover:opacity-100"
+                    sizes="auto"
+                    className="mix-blend-normal dark:mix-blend-color-dodge opacity-70 hover:opacity-100 object-cover"
                   />
                 </Link>
               )}
             </div>
-            <Link className="font-bold text-md text-foreground h-full w-full" href={`/blogs/${post.slug}`} aria-label={post.title}>
+            <Link
+              className="hover:animate-pulse font-bold text-md text-foreground h-full w-full"
+              href={`/blogs/${post.slug}`}
+              aria-label={post.title}
+              scroll={false}
+            >
               {post.title}
             </Link>
           </div>
