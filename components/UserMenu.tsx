@@ -16,7 +16,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
   return (
     <div>
       {user ? (
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
           <Button label="subscribe" onClick={() => subscribeModal.onOpen()} />
           <LogoutButton />
         </div>

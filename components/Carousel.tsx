@@ -93,7 +93,7 @@ const Carousel: FC<CarouselProps> = ({ topBlogs }) => {
                     src={post.image}
                     alt={post.title}
                     sizes="auto"
-                    className="mix-blend-normal dark:mix-blend-color-dodge opacity-70 hover:opacity-100 object-cover"
+                    className="mix-blend-normal dark:mix-blend-normal opacity-70 hover:opacity-100 object-cover"
                   />
                 </Link>
               )}
