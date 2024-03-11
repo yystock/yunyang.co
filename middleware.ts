@@ -5,7 +5,6 @@ import { Ratelimit } from "@upstash/ratelimit";
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.cachedFixedWindow(1, "1 m"),
-  analytics: true,
   ephemeralCache: new Map(),
 });
 

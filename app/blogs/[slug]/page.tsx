@@ -4,14 +4,11 @@ import { blogs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Blocks, { DataProp } from "editorjs-blocks-react-renderer";
 import BlogViews from "./BlogViews";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-import { renderConfig } from "@/config/render";
-import { Code } from "@/components/renderers/CustomCodeRenderer";
-import CustomImageRenderer from "@/components/renderers/CustomImageRenderer";
 import "./page.css";
+import EditorOutput from "./renderer";
 
 interface BlogPageProps {
   params: {
@@ -80,15 +77,9 @@ const BlogPage = async ({ params }: BlogPageProps) => {
       <div className="relative w-full h-72 mt-4 mb-8">
         {blog.image && <Image src={blog.image} fill={true} alt={blog.title} className="object-cover" />}
       </div>
-
-      <Blocks
-        data={blog.content as DataProp}
-        config={renderConfig}
-        renderers={{
-          code: Code,
-          Image: CustomImageRenderer,
-        }}
-      />
+      <section>
+        <EditorOutput content={blog.content} />
+      </section>
     </div>
   );
 };

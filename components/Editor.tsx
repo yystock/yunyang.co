@@ -123,7 +123,14 @@ export const Editor: React.FC<EditorProps> = ({ blog, id }) => {
           code: Code,
           inlineCode: InlineCode,
           table: Table,
-          embed: Embed,
+          embed: {
+            class: Embed,
+            config: {
+              services: {
+                youtube: true,
+              },
+            },
+          },
         },
       });
     }

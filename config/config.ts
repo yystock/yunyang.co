@@ -8,7 +8,7 @@ const config = {
     name: `Yun`,
   },
   description: `Web Developer, Software Engineer`,
-  siteUrl: `https://yunyang-co.vercel.app/`,
+  siteUrl: process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://yunyang-co.vercel.app/`,
   social: {
     github: `https://github.com/yystock`,
     twitter: `https://twitter.com/YunYang126463`,

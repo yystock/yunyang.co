@@ -12,6 +12,7 @@ import NextAuthProvider from "@/components/AuthProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+  metadatabase: config.siteUrl,
   title: {
     default: config.title,
     template: "%s | Yun",

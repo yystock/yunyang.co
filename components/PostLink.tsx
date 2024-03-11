@@ -7,9 +7,10 @@ interface PostLinkProps {
   slug: string;
   title: string;
   date: string;
+  views: number;
 }
 
-const PostLink = ({ slug, title, date }: PostLinkProps) => {
+const PostLink = ({ slug, title, date, views }: PostLinkProps) => {
   return (
     <article className=" px-4 py-3 rounded-lg hover:shadow-2xl">
       <Link href={`/blogs/${slug}`} className="block text-xl font-bold sm:text-2xl" scroll={false}>
@@ -22,7 +23,7 @@ const PostLink = ({ slug, title, date }: PostLinkProps) => {
         <span className="mx-1">&bull;</span>
 
         <span>
-          <ViewsCounter slug={slug} />
+          {views}
           {` views`}
         </span>
       </div>

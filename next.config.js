@@ -6,6 +6,7 @@ const nextConfig = {
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "lh3.googleusercontent.com" },
       { hostname: "pbs.twimg.com" },
+      { hostname: "worker-ai-anystyles.yy763831702.workers.dev" },
     ],
   },
 };

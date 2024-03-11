@@ -19,7 +19,7 @@ const AuthForm: FC<AuthFormProps> = ({ className, ...props }) => {
     setIsLoading(true);
     try {
       await signIn("google");
-      router.push("/admin");
+      router.push("/dashboard/admin");
       toast.success("User logged in");
     } catch (error) {
       toast.error("There was an error logging in with Google");
